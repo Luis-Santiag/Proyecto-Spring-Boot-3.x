@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class SaludoController {
 
-    // SOLUCION RETO (pasos 2 y 3): inyeccion por constructor para usar la logica de saludo.
+    
     private final SaludoService saludoService;
 
     public SaludoController(SaludoService saludoService) {
