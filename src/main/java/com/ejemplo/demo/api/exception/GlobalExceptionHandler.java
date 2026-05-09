@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> manejarReglaDeNegocio(IllegalArgumentException ex) {
-        // SOLUCION RETO (paso 5): errores de regla de negocio regresan 400 controlado.
+        
         ErrorResponse body = new ErrorResponse(
                 "BUSINESS_RULE_ERROR",
                 ex.getMessage(),
@@ -53,5 +53,16 @@ public class GlobalExceptionHandler {
                 Map.of()
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+    }
+    
+    @ExceptionHandler(jakarta.persistence.EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> manejarNoEncontrado(jakarta.persistence.EntityNotFoundException ex) {
+        ErrorResponse body = new ErrorResponse(
+                "NOT_FOUND",
+                ex.getMessage(),
+                java.time.Instant.now(),
+                java.util.Map.of()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 }
